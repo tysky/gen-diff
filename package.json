@@ -32,5 +32,8 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "*",
     "eslint-plugin-import": "*"
+  },
+  "dependencies": {
+    "commander": "^2.11.0"
   }
 }
