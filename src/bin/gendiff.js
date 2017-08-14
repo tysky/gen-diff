@@ -7,6 +7,3 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .option('-f, --format [type]', 'Output format')
   .parse(process.argv);
-
-
-console.log('Hello, gendiff!');
