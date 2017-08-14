@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-console.log("Hello, gendiff!");
+console.log('Hello, gendiff!');
