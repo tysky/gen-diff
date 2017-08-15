@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-const program = require('commander');
+import program from 'commander';
+import config from '../../package.json';
 
 program
-  .version('0.0.1')
-  .description('Compares two configuration files and shows a difference.')
+  .version(config.version)
+  .description(config.description)
   .arguments('<firstConfig> <secondConfig>')
   .option('-f, --format [type]', 'Output format')
   .parse(process.argv);
