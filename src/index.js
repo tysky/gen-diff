@@ -1,8 +1,10 @@
 import diffObjects from './diffObjects';
-import formatToJS from './formatToJS';
+import getFile from './getFile';
+import parse from './parse';
+
 
 export default (path1, path2) => {
-  const beforeFile = formatToJS(path1);
-  const afterFile = formatToJS(path2);
-  return diffObjects(beforeFile, afterFile);
+  const obj1 = parse(getFile(path1));
+  const obj2 = parse(getFile(path2));
+  return diffObjects(obj1, obj2);
 };
