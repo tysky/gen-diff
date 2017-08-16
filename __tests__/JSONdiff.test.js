@@ -23,4 +23,12 @@ describe('test difference between files', () => {
 
     expect(gendiff(beforeYAML, afterYAML)).toBe(expectedDiff);
   });
+
+  it('test diff in INI files', () => {
+    // relative path to flat INI files
+    const beforeINI = './__tests__/examples/before.ini';
+    const afterINI = './__tests__/examples/after.ini';
+
+    expect(gendiff(beforeINI, afterINI)).toBe(expectedDiff);
+  });
 });
