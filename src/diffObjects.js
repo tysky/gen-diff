@@ -11,7 +11,7 @@ const toString = (ast) => {
     }
     return `${acc}  ${element.key}: ${element.value1}\n`; // elememt.type === 'equal';
   }, '');
-  return str;
+  return `{\n${str}}`;
 };
 
 // two objects in arguments
