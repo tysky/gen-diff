@@ -1,3 +1,4 @@
+// import gendiff from 'gen-file-diff';
 import gendiff from '../src/index';
 
 describe('JSON', () => {
