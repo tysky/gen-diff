@@ -12,6 +12,7 @@ describe('JSON', () => {
     - proxy: 123.234.53.22
     + verbose: true
   }`;
+
     expect(expectedDiff).toBe(diff);
   });
 });
