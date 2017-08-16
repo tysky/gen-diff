@@ -1,10 +1,7 @@
 import gendiff from '../src/index';
 
-describe('JSON', () => {
-  it('test diff in JSON files', () => {
-    const pathToFile1 = './__tests__/examples/before.json';
-    const pathToFile2 = './__tests__/examples/after.json';
-    const expectedDiff = `{
+describe('test difference between files', () => {
+  const expectedDiff = `{
   host: hexlet.io
 + timeout: 20
 - timeout: 50
@@ -12,6 +9,18 @@ describe('JSON', () => {
 + verbose: true
 }`;
 
-    expect(gendiff(pathToFile1, pathToFile2)).toBe(expectedDiff);
+  it('test diff in JSON files', () => {
+    // relative path to flat JSON files
+    const beforeJSON = './__tests__/examples/before.json';
+    const afterJSON = './__tests__/examples/after.json';
+    expect(gendiff(beforeJSON, afterJSON)).toBe(expectedDiff);
+  });
+
+  it('test diff in YAML files', () => {
+    // relative path to flat YAML files
+    const beforeYAML = './__tests__/examples/before.yml';
+    const afterYAML = './__tests__/examples/after.yml';
+
+    expect(gendiff(beforeYAML, afterYAML)).toBe(expectedDiff);
   });
 });
