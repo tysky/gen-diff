@@ -29,10 +29,10 @@ export default (obj1, obj2) => {
     return 'added'; // if keys2.includes(key)
   };
 
-  const buildObj = key =>
+  const buildNode = key =>
     ({ key, oldValue: obj1[key], newValue: obj2[key], type: getType(key) });
 
-  const ast = keysUnion.map(buildObj);
+  const ast = keysUnion.map(buildNode);
 
   return toString(ast);
 };
