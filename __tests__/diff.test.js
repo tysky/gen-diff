@@ -1,6 +1,6 @@
 import gendiff from '../src/index';
 
-describe('test difference between files', () => {
+describe('test difference between flat files', () => {
   const expectedDiff = `{
   host: hexlet.io
 + timeout: 20
@@ -30,5 +30,47 @@ describe('test difference between files', () => {
     const afterINI = './__tests__/examples/after.ini';
 
     expect(gendiff(beforeINI, afterINI)).toBe(expectedDiff);
+  });
+});
+
+describe('test difference between nested files', () => {
+  const expectedDiff = `{
+  common: {
+      setting1: Value 1
+    - setting2: 200
+      setting3: true
+    - setting6: {
+          key: value
+      }
+    + setting4: blah blah
+    + setting5: {
+          key5: value5
+      }
+  }
+  group1: {
+    + baz: bars
+    - baz: bas
+      foo: bar
+  }
+- group2: {
+      abc: 12345
+  }
++ group3: {
+      fee: 100500
+  }
+}`;
+  it('test diff in JSON files', () => {
+    // relative path to nested JSON files
+    const beforeNestedJSON = './__tests__/examples/beforeNested.json';
+    const afterNestedJSON = './__tests__/examples/afterNested.json';
+    expect(gendiff(beforeNestedJSON, afterNestedJSON)).toBe(expectedDiff);
+  });
+
+  it('test diff in YAML files', () => {
+    // relative path to flat YAML files
+    const beforeNestedYAML = './__tests__/examples/beforeNested.yml';
+    const afterNestedYAML = './__tests__/examples/afterNested.yml';
+
+    expect(gendiff(beforeNestedYAML, afterNestedYAML)).toBe(expectedDiff);
   });
 });
