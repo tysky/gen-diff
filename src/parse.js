@@ -2,9 +2,9 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 
 const formats = {
-  '.json': file => JSON.parse(file),
-  '.yml': file => yaml.safeLoad(file),
-  '.ini': file => ini.parse(file),
+  '.json': data => JSON.parse(data),
+  '.yml': data => yaml.safeLoad(data),
+  '.ini': data => ini.parse(data),
 };
 
-export default obj => formats[obj.extension](obj.file);
+export default obj => formats[obj.extension](obj.data);
