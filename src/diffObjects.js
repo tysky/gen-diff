@@ -3,39 +3,36 @@ import _ from 'lodash';
 const toString = (ast) => {
   const str = ast.reduce((acc, element) => {
     if (element.type === 'changed') {
-      return `${acc}+ ${element.key}: ${element.value2}\n- ${element.key}: ${element.value1}\n`;
-    } else if (element.type === 'new') {
-      return `${acc}+ ${element.key}: ${element.value2}\n`;
+      return `${acc}+ ${element.key}: ${element.newValue}\n- ${element.key}: ${element.oldValue}\n`;
+    } else if (element.type === 'added') {
+      return `${acc}+ ${element.key}: ${element.newValue}\n`;
     } else if (element.type === 'removed') {
-      return `${acc}- ${element.key}: ${element.value1}\n`;
+      return `${acc}- ${element.key}: ${element.oldValue}\n`;
     }
-    return `${acc}  ${element.key}: ${element.value1}\n`; // elememt.type === 'equal';
+    return `${acc}  ${element.key}: ${element.oldValue}\n`; // elememt.type === 'unchanged';
   }, '');
   return `{\n${str}}`;
 };
 
 // two objects in arguments
-export default (first, second) => {
-  const ast = [];
-  const keys1 = Object.keys(first);
-  const keys2 = Object.keys(second);
-  const keysJoint = _.intersection(keys1, keys2);
-  const keysUniq1 = _.difference(keys1, keys2);
-  const keysUniq2 = _.difference(keys2, keys1);
+export default (obj1, obj2) => {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  const keysUnion = _.union(keys1, keys2);
 
-  const buildObj = (item) => {
-    let typeValue;
-    if (keysJoint.includes(item)) {
-      typeValue = first[item] === second[item] ? 'equal' : 'changed';
-    } else if (keysUniq1.includes(item)) {
-      typeValue = 'removed';
-    } else if (keysUniq2.includes(item)) {
-      typeValue = 'new';
+  const getType = (key) => {
+    if (keys1.includes(key) && keys2.includes(key)) {
+      return obj1[key] === obj2[key] ? 'unchanged' : 'changed';
+    } else if (keys1.includes(key)) {
+      return 'removed';
     }
-    ast.push({ key: item, value1: first[item], value2: second[item], type: typeValue });
+    return 'added'; // if keys2.includes(key)
   };
 
-  keys1.forEach(buildObj);
-  keysUniq2.forEach(buildObj);
+  const buildObj = key =>
+    ({ key, oldValue: obj1[key], newValue: obj2[key], type: getType(key) });
+
+  const ast = keysUnion.map(key => buildObj(key));
+
   return toString(ast);
 };
