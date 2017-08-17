@@ -32,7 +32,7 @@ export default (obj1, obj2) => {
   const buildObj = key =>
     ({ key, oldValue: obj1[key], newValue: obj2[key], type: getType(key) });
 
-  const ast = keysUnion.map(key => buildObj(key));
+  const ast = keysUnion.map(buildObj);
 
   return toString(ast);
 };
