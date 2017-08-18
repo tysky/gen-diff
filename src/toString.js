@@ -6,8 +6,6 @@ const nodeToString = (acc, element, level) => {
       const json = JSON.stringify(item, null, '');
       const str = json.slice(1, -1).replace(/["]+/g, '').replace(/[:]/g, ': ');
       return `{\n${spacing(level + 1)}  ${str}\n${spacing(level)}  }`;
-    // console.log(JSON.stringify({ a: 2 }, null, ' '));
-      // return json.replace(/['"]+/g, '');
     }
     return item;
   };
@@ -22,7 +20,6 @@ const nodeToString = (acc, element, level) => {
 };
 
 const toString = (ast, level = 0) => {
-  // console.log('AST==========', ast);
   const str = ast.reduce((acc, element) => {
     if (element.hasChildren) {
       return `${acc}${spacing(level)}  ${element.key}: {\n${toString(element.values, level + 1)}${spacing(level)}  }\n`;
@@ -31,6 +28,4 @@ const toString = (ast, level = 0) => {
   }, '');
   return `${str}`;
 };
-const finish = ast => `{\n${toString(ast, 0)}  }`;
-// export default toString;
-export default finish;
+export default ast => `{\n${toString(ast, 0)}  }`;
