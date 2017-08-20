@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import toString from './toString';
+import output from './output/output';
 
 // two objects in arguments
 const buildAST = (obj1, obj2) => {
@@ -35,7 +35,7 @@ const buildAST = (obj1, obj2) => {
   return keysUnion.map(buildNode);
 };
 
-export default (obj1, obj2) => {
+export default (obj1, obj2, format) => {
   const ast = buildAST(obj1, obj2);
-  return toString(ast);
+  return output(ast, format);
 };
