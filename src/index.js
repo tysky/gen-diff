@@ -3,7 +3,6 @@ import path from 'path';
 import diffObjects from './diffObjects';
 import parse from './parse';
 
-
 export default (path1, path2, format) => {
   const obj1 = parse({
     data: fs.readFileSync(path1, 'utf8'),

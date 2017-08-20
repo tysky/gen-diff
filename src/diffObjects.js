@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import output from './output/output';
+import getRenderer from './renderers';
 
 // two objects in arguments
 const buildAST = (obj1, obj2) => {
@@ -36,5 +36,5 @@ const buildAST = (obj1, obj2) => {
 
 export default (obj1, obj2, format) => {
   const ast = buildAST(obj1, obj2);
-  return output(ast, format);
+  return getRenderer(ast, format);
 };
