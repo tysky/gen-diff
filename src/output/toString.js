@@ -1,6 +1,6 @@
 const spacing = level => `${'    '.repeat(level)}  `;
 
-const nodeToString = (acc, element, level) => {
+const nodeToString = (element, level) => {
   const toStr = (item) => {
     if (item instanceof Object) {
       const json = JSON.stringify(item, null, '');
@@ -10,13 +10,13 @@ const nodeToString = (acc, element, level) => {
     return item;
   };
   if (element.type === 'changed') {
-    return `${acc}${spacing(level)}+ ${element.key}: ${toStr(element.newValue)}\n${spacing(level)}- ${element.key}: ${toStr(element.oldValue)}\n`;
+    return `${spacing(level)}+ ${element.key}: ${toStr(element.newValue)}\n${spacing(level)}- ${element.key}: ${toStr(element.oldValue)}`;
   } else if (element.type === 'added') {
-    return `${acc}${spacing(level)}+ ${element.key}: ${toStr(element.newValue)}\n`;
+    return `${spacing(level)}+ ${element.key}: ${toStr(element.newValue)}`;
   } else if (element.type === 'removed') {
-    return `${acc}${spacing(level)}- ${element.key}: ${toStr(element.oldValue)}\n`;
+    return `${spacing(level)}- ${element.key}: ${toStr(element.oldValue)}`;
   }
-  return `${acc}${spacing(level)}  ${element.key}: ${element.oldValue}\n`; // element.type === 'unchanged';
+  return `${spacing(level)}  ${element.key}: ${element.oldValue}`; // element.type === 'unchanged';
 };
 
 const toString = (ast, level = 0) => {
@@ -24,7 +24,7 @@ const toString = (ast, level = 0) => {
     if (element.type === 'nested') {
       return `${acc}${spacing(level)}  ${element.key}: {\n${toString(element.children, level + 1)}${spacing(level)}  }\n`;
     }
-    return nodeToString(acc, element, level);
+    return `${acc}${nodeToString(element, level)}\n`;
   }, '');
   return `${str}`;
 };

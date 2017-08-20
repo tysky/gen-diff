@@ -1,10 +1,10 @@
 import toString from './toString';
-import flat from './flat';
+import plain from './plain';
 
 export default (ast, format) => {
   switch (format) {
     case 'plain':
-      return flat(ast);
+      return plain(ast);
     default:
       return toString(ast);
   }
