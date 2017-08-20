@@ -8,7 +8,7 @@ const buildAST = (obj1, obj2) => {
   const keysUnion = _.union(keys1, keys2);
 
   const getType = (key) => {
-    if (obj1[key] instanceof Object && obj2[key] instanceof Object) {
+    if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
       return 'nested';
     } else if (keys1.includes(key) && keys2.includes(key)) {
       return obj1[key] === obj2[key] ? 'unchanged' : 'changed';

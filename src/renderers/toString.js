@@ -1,7 +1,9 @@
+import _ from 'lodash';
+
 const spacing = level => `${'    '.repeat(level)}  `;
 
 const toStr = (item, level) => {
-  if (item instanceof Object) {
+  if (_.isObject(item)) {
     const json = JSON.stringify(item, null, '');
     const str = json.slice(1, -1).replace(/["]+/g, '').replace(/[:]/g, ': ');
     return `{\n${spacing(level + 1)}  ${str}\n${spacing(level)}  }`;
@@ -21,8 +23,6 @@ const toString = (ast, level = 0) => {
       return `${acc}${spacing(level)}- ${element.key}: ${toStr(element.oldValue, level)}\n`;
     }
     return `${acc}${spacing(level)}  ${element.key}: ${element.oldValue}\n`; // element.type === 'unchanged';
-
-    // return `${acc}${nodeToString(element, level)}\n`;
   }, '');
   return `${str}`;
 };
