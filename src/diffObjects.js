@@ -3,8 +3,8 @@ import output from './output/output';
 
 // two objects in arguments
 const buildAST = (obj1, obj2) => {
-  const keys1 = obj1 === undefined ? [] : Object.keys(obj1);
-  const keys2 = obj2 === undefined ? [] : Object.keys(obj2);
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
   const keysUnion = _.union(keys1, keys2);
 
   const getType = (key) => {
@@ -26,8 +26,8 @@ const buildAST = (obj1, obj2) => {
   };
 
   const buildNode = (key) => {
-    const oldValue = obj1 === undefined ? undefined : obj1[key];
-    const newValue = obj2 === undefined ? undefined : obj2[key];
+    const oldValue = obj1[key];
+    const newValue = obj2[key];
 
     return { key, oldValue, newValue, type: getType(key), children: getChildren(key) };
   };
