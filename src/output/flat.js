@@ -6,6 +6,7 @@ const nodeToString = (acc, element, level) => {
   } else if (element.type === 'removed') {
     return `${acc}Property '${element.oldValue}' was removed\n`;
   }
+  return `${acc}Property '${element.key}' was added with complex value`;
   // return `${acc}${spacing(level)}  ${element.key}: ${element.oldValue}\n`; // element.type === 'unchanged';
 
 }
