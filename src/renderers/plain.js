@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const renderProperty = {
-  unchanged: (element, path) => '',
+  unchanged: (element, path) => '', // eslint-disable-line no-unused-vars
   changed: (element, path) => `Property '${path}' was updated. From '${element.oldValue}' to '${element.newValue}'\n`,
   added: (element, path) => {
     if (_.isObject(element.newValue)) {

@@ -8,23 +8,21 @@ const toStr = (item, level) => {
   }
   return item;
 };
-const nodeToString = (element, level) => {
-  if (element.type === 'changed') {
-    return `${spacing(level)}+ ${element.key}: ${toStr(element.newValue, level)}\n${spacing(level)}- ${element.key}: ${toStr(element.oldValue, level)}`;
-  } else if (element.type === 'added') {
-    return `${spacing(level)}+ ${element.key}: ${toStr(element.newValue, level)}`;
-  } else if (element.type === 'removed') {
-    return `${spacing(level)}- ${element.key}: ${toStr(element.oldValue, level)}`;
-  }
-  return `${spacing(level)}  ${element.key}: ${element.oldValue}`; // element.type === 'unchanged';
-};
 
 const toString = (ast, level = 0) => {
   const str = ast.reduce((acc, element) => {
     if (element.type === 'nested') {
       return `${acc}${spacing(level)}  ${element.key}: {\n${toString(element.children, level + 1)}${spacing(level)}  }\n`;
+    } else if (element.type === 'changed') {
+      return `${acc}${spacing(level)}+ ${element.key}: ${toStr(element.newValue, level)}\n${spacing(level)}- ${element.key}: ${toStr(element.oldValue, level)}\n`;
+    } else if (element.type === 'added') {
+      return `${acc}${spacing(level)}+ ${element.key}: ${toStr(element.newValue, level)}\n`;
+    } else if (element.type === 'removed') {
+      return `${acc}${spacing(level)}- ${element.key}: ${toStr(element.oldValue, level)}\n`;
     }
-    return `${acc}${nodeToString(element, level)}\n`;
+    return `${acc}${spacing(level)}  ${element.key}: ${element.oldValue}\n`; // element.type === 'unchanged';
+
+    // return `${acc}${nodeToString(element, level)}\n`;
   }, '');
   return `${str}`;
 };
