@@ -21,8 +21,8 @@ const nodeToString = (acc, element, level) => {
 
 const toString = (ast, level = 0) => {
   const str = ast.reduce((acc, element) => {
-    if (element.hasChildren) {
-      return `${acc}${spacing(level)}  ${element.key}: {\n${toString(element.values, level + 1)}${spacing(level)}  }\n`;
+    if (element.children.length !== 0) {
+      return `${acc}${spacing(level)}  ${element.key}: {\n${toString(element.children, level + 1)}${spacing(level)}  }\n`;
     }
     return nodeToString(acc, element, level);
   }, '');

@@ -16,18 +16,18 @@ const buildAST = (obj1, obj2) => {
     return 'added'; // if keys2.includes(key)
   };
 
+  const getChildren = (key) => {
+    if (obj1[key] instanceof Object && obj2[key] instanceof Object) {
+      return buildAST(obj1[key], obj2[key]);
+    }
+    return [];
+  };
+
   const buildNode = (key) => {
     const oldValue = obj1 === undefined ? undefined : obj1[key];
     const newValue = obj2 === undefined ? undefined : obj2[key];
 
-    if (oldValue instanceof Object && newValue instanceof Object) {
-      return {
-        key,
-        values: buildAST(oldValue, newValue),
-        hasChildren: true,
-      };
-    }
-    return { key, oldValue, newValue, type: getType(key), hasChildren: false };
+    return { key, oldValue, newValue, type: getType(key), children: getChildren(key) };
   };
 
   return keysUnion.map(buildNode);
