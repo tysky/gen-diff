@@ -4,6 +4,7 @@ import ini from 'ini';
 const formats = {
   '.json': data => JSON.parse(data),
   '.yml': data => yaml.safeLoad(data),
+  '.yaml': data => yaml.safeLoad(data),
   '.ini': data => ini.parse(data),
 };
 
