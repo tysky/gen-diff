@@ -83,3 +83,29 @@ describe('test difference between nested files', () => {
     expect(gendiff(beforeNestedINI, afterNestedINI)).toBe(expectedDiff);
   });
 });
+
+describe('test difference between files in flat mode', () => {
+  const expectedDiff = `Property 'common.setting2' was removed
+Property 'common.setting6' was removed
+Property 'common.setting4' was added with value: blah blah
+Property 'common.setting5' was added with complex value
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group2' was removed
+Property 'group3' was added with complex value`;
+
+  it('test diff in JSON files', () => {
+    const beforeNestedJSON = './__tests__/fixtures/beforeNested.json';
+    const afterNestedJSON = './__tests__/fixtures/afterNested.json';
+    expect(gendiff(beforeNestedJSON, afterNestedJSON)).toBe(expectedDiff);
+  });
+  it('test diff in YAML files', () => {
+    const beforeNestedYAML = './__tests__/fixtures/beforeNested.yml';
+    const afterNestedYAML = './__tests__/fixtures/afterNested.yml';
+    expect(gendiff(beforeNestedYAML, afterNestedYAML)).toBe(expectedDiff);
+  });
+  it('test diff in INI files', () => {
+    const beforeNestedINI = './__tests__/fixtures/beforeNested.ini';
+    const afterNestedINI = './__tests__/fixtures/afterNested.ini';
+    expect(gendiff(beforeNestedINI, afterNestedINI)).toBe(expectedDiff);
+  });
+});
